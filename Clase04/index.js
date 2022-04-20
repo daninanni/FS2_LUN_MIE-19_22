@@ -13,21 +13,17 @@ server.listen(port, (err) => {
 })
 
 
-
-//rutas --------------------------------------------------
 server.get("/", (req, res) => {
-    const content = 
-    `
+    const content = `
     <h1>Server con Express</h1>
     <p>Holiiiis, ke a c </p>
     `
     res.send(content)
 });
 
-
 //get all users
 server.get("/users", (req, res, next) => {
-    users.length ? res.json(users) : next()  ////
+    users.length ? res.json(users) : next()
 })
 
 //get user by id
@@ -35,7 +31,7 @@ server.get("/users/:id", (req, res, next) => {
     if (isNaN(+req.params.id)) {
         res.status(400).json({ message: "Debe ingresar un número" })
     }
-    const userById = users.filter((user) => user.id === +req.params.id) // no te olvides de parsear
+    const userById = users.filter((user) => user.id === +req.params.id)
     userById.length ? res.json(userById) : next()
 })
 
@@ -61,13 +57,8 @@ server.delete("/users/:id", (req, res, next) => {
         const filteredArr = users.filter((user => user.id !== +req.params.id))
         users = filteredArr
         res.status(200).json({ message: "Recurso eliminado " })
-            /*204 "no content" y la madre que lo parió.
-             Acá explica por qué hace lo que hace:
-            The 204(No Content) status code indicates that the server has successfully 
-            fulfilled the request and that there is no additional content to send in the 
-            response payload body.While 200 OK being a valid and the most common answer, 
-            returning a 204 No Content could make sense as there is absolutely nothing 
-            to return.*/
+            /*204 "no content" y la madre que lo parió. Acá explica por qué hace lo que hace:
+            The 204(No Content) status code indicates that the server has successfully fulfilled the request and that there is no additional content to send in the response payload body.While 200 OK being a valid and the most common answer, returning a 204 No Content could make sense as there is absolutely nothing to return.*/
 
     } else {
 
